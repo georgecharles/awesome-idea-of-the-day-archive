@@ -10,7 +10,7 @@ on:
       delay_ms:
         description: 'Delay between messages (ms)'
         required: false
-        default: '2000'
+        default: '3000'
 
 jobs:
   sync:
