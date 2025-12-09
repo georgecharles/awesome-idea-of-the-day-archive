@@ -1,17 +1,18 @@
 {
   "name": "awesome-idea-of-the-day-archive",
-  "version": "1.0.0",
-  "description": "🚀 An automated archive of daily startup ideas and business opportunities from Ideabrowser.com",
+  "version": "1.1.0",
+  "description": "🚀 An automated archive of daily startup ideas and business opportunities from Ideabrowser.com with Discord integration",
   "main": "screenshot.js",
   "scripts": {
     "capture": "node screenshot.js",
     "daily-idea": "node screenshot.js",
     "start": "node screenshot.js",
+    "sync-archives": "node src/sync-archives.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "awesome",
-    "startup-ideas", 
+    "startup-ideas",
     "business-opportunities",
     "automation",
     "archive",
@@ -19,7 +20,9 @@
     "entrepreneurship",
     "github-actions",
     "puppeteer",
-    "web-scraping"
+    "web-scraping",
+    "discord",
+    "webhook"
   ],
   "repository": {
     "type": "git",
@@ -32,6 +35,11 @@
   },
   "homepage": "https://github.com/yourusername/awesome-idea-of-the-day-archive#readme",
   "dependencies": {
+    "dotenv": "^16.3.1",
+    "form-data": "^4.0.0",
     "puppeteer": "^23.7.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

@@ -1,2 +1,22 @@
-package-lock.json
-node_modules
+# Dependencies
+node_modules/
+
+# Environment variables (contains secrets!)
+.env
+
+# Discord sync tracking
+.discord-sent.json
+
+# macOS
+.DS_Store
+._*
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

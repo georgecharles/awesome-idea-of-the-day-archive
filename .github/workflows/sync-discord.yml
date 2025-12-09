@@ -1,0 +1,42 @@
+name: Sync Archives to Discord
+
+# This workflow syncs all existing archive screenshots to Discord
+# Run this ONCE manually to backfill your Discord channel
+
+on:
+  # Manual trigger only
+  workflow_dispatch:
+    inputs:
+      delay_ms:
+        description: 'Delay between messages (ms)'
+        required: false
+        default: '2000'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (skip Puppeteer)
+        run: PUPPETEER_SKIP_DOWNLOAD=1 npm install
+
+      - name: Sync archives to Discord
+        run: node src/sync-archives.js
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_DELAY_MS: ${{ github.event.inputs.delay_ms }}
+
+      - name: Save sync progress
+        uses: actions/upload-artifact@v4
+        with:
+          name: discord-sync-log
+          path: .discord-sent.json
+          retention-days: 30

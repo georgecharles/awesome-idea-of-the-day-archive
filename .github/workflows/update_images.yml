@@ -24,6 +24,9 @@ on:
       # Add more branches here if needed:
       # - develop
       # - staging
+  
+  # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   screenshot:
@@ -49,13 +52,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Take screenshot of ideabrowser.com
+      # Step 4: Take screenshot of ideabrowser.com and send to Discord
       - name: Capture daily idea screenshot
         run: node screenshot.js
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         # The screenshot.js script automatically:
         # - Scrapes https://www.ideabrowser.com/
         # - Creates archives/year/month/ folder structure
         # - Saves screenshot as "14 July 2025.png" format
+        # - Sends screenshot to Discord #business-ideas channel
 
       # Optional: Add custom processing steps
       # - name: Process screenshot
@@ -80,11 +86,3 @@ jobs:
       #     name: daily-screenshots
       #     path: archives/
       #     retention-days: 7
-
-      # Optional: Send notifications
-      # - name: Send notification
-      #   if: always()
-      #   uses: some-notification-action@v1
-      #   with:
-      #     status: ${{ job.status }}
-      #     webhook: ${{ secrets.WEBHOOK_URL }} 
